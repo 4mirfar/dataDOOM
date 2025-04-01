@@ -1,2 +1,2 @@
 # dataDOOM
-doing some data engineering, personal use and good practices might be useful
+doing some data engineering / mining, personal use and good practices might be useful
