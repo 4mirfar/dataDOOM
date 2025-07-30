@@ -8,7 +8,6 @@
 
 Welcome to **dataDOOM** — a personal data engineering and mining repository forged in the ashes of forgotten clusters. In a universe where pipelines are broken, schemas are corrupted, and documentation is extinct, this is where **data survivors** come to thrive.
 
----
 
 ## 🌒 What is dataDOOM?
 
@@ -19,8 +18,6 @@ This is not your average clean-room ETL project.
 This is **data combat**.  
 No production constraints. No corporate boundaries.  
 Just raw, chaotic, beautiful **DATA** — and the tools to make sense of it.
-
----
 
 ## 🔧 Tech Arsenal
 
@@ -42,7 +39,6 @@ Other times, you dig into a tunnel and unleash a horde of malformed dates and nu
 
 You’ve been warned.
 
----
 
 ## 🚀 Getting Started
 
