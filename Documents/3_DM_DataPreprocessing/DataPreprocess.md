@@ -44,3 +44,17 @@ In here we do some data preprocessing in data mining practices.
 
 [SimpleImputer Docs](https://scikit-learn.org/1.5/modules/generated/sklearn.impute.SimpleImputer.html)  
 [KNNImputer Docs](https://scikit-learn.org/1.5/modules/generated/sklearn.impute.KNNImputer.html)
+
+
+### Slide 10: Missing Values – Important Note
+
+Not all missing values are the same.  
+Some are **random**, others are **not random**.
+
+**Examples (not random):**
+- Optional survey questions (e.g., "How often do you drink alcohol?")
+- Data only collected in special cases (e.g., university grade if graduated)
+- Values valid for specific groups (e.g., "Are you sick?")
+- Sensors that fail under certain conditions (e.g., high temperature)
+
+👉 Be careful: **"missing" can carry important meaning!**
