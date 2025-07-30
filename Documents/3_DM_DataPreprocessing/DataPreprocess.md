@@ -58,3 +58,29 @@ Some are **random**, others are **not random**.
 - Sensors that fail under certain conditions (e.g., high temperature)
 
 👉 Be careful: **"missing" can carry important meaning!**
+
+### Slide 11: Handling Missing Values – Example Problem
+
+Imagine a medical trial studying side effects of a drug.  
+- Only 50 people have their blood sugar recorded.
+- Out of those 50, **40 have high blood sugar**, and **30 of them got side effects**.
+
+**Observation:**
+- People with high blood sugar → 75% chance of side effects  
+- Overall side effect rate → ~23%
+
+Now you know: missing values **can hide patterns**.
+
+---
+
+### Slide 12: Handling Missing Values – Danger of Imputation
+
+If we fill in missing blood sugar values with the most common value ("yes"):
+- The number of "high blood sugar" people becomes much higher.
+- The pattern disappears: risk seems **lower**, not higher!
+
+**Result:**
+- Side effect risk seems **less** for people with high blood sugar.
+- But that’s **wrong**, because we **filled in missing values blindly**.
+
+👉 **Conclusion:** Imputing without thinking can destroy useful information!
