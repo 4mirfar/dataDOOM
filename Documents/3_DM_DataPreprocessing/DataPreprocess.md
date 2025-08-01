@@ -84,3 +84,34 @@ If we fill in missing blood sugar values with the most common value ("yes"):
 - But that’s **wrong**, because we **filled in missing values blindly**.
 
 👉 **Conclusion:** Imputing without thinking can destroy useful information!
+
+
+### Slide 14: Resampling Unbalanced Data
+
+Sometimes your dataset is **unbalanced** — one class has many more examples than the other.
+
+**Example:**
+- Class A: 1000 samples
+- Class B: 10 samples
+
+This makes it hard for a model to learn from the smaller class.
+
+---
+
+### Two Main Strategies
+
+1. **Downsampling the larger class**  
+   → Reduce Class A to 10 samples to match Class B  
+   🔴 Problem: You throw away a lot of data!
+
+2. **Upsampling the smaller class**  
+   → Make many copies of Class B  
+   🔴 Problem: Model might **just memorize** those few examples.
+
+---
+
+🎯 Goal:  
+- Use **as much data** as possible  
+- Keep the training set **diverse**
+
+➡️ It’s a trade-off!
