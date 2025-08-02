@@ -115,3 +115,27 @@ This makes it hard for a model to learn from the smaller class.
 - Keep the training set **diverse**
 
 ➡️ It’s a trade-off!
+
+### Slide 15: Resampling Unbalanced Data – Continued
+
+Let’s look again at a dataset:
+
+- **Class A**: 1000 samples  
+- **Class B**: 10 samples
+
+---
+
+**Downsampling:**
+- Keep only 10 samples from Class A  
+- 🔴 You lose 990 examples = less training data
+
+**Upsampling:**
+- Make 100 copies of each Class B sample  
+- 🔴 The model might just memorize Class B and not learn anything general
+
+---
+
+💡 **Better solutions:**
+- Use smarter techniques like **SMOTE** (covered in next slide)
+- Use Python libraries:  
+  [imbalanced-learn.org](https://imbalanced-learn.org/)
