@@ -139,3 +139,25 @@ Let’s look again at a dataset:
 - Use smarter techniques like **SMOTE** (covered in next slide)
 - Use Python libraries:  
   [imbalanced-learn.org](https://imbalanced-learn.org/)
+
+### Slide 24: Unsupported Data Types
+
+Not all machine learning algorithms can handle every type of data.
+
+---
+
+### Common Problems:
+- **SVMs** can't handle **categorical** data
+- **ID3** (decision tree) can't handle **numeric** data
+- **Dates** are tricky for most models
+- **Text** must be transformed into numbers
+
+---
+
+### What to do:
+
+✅ Convert your data into supported formats:
+- Turn **categorical data** into numbers (e.g., encoding)
+- Turn **numbers** into categories if needed (binning)
+- Extract useful features from **dates**
+- Transform **text** into vectors (e.g., Bag-of-Words, TF-IDF)
