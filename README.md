@@ -44,5 +44,5 @@ You’ve been warned.
 
 1. Clone this repository from the last signal tower:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/dataDOOM.git
+   git clone https://github.com/4mirfar/dataDOOM.git
    cd dataDOOM
