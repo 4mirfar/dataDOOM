@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_user: str
     postgres_password: str
+    coingecko_base_url: str = "https://api.coingecko.com/api/v3"
 
     model_config = SettingsConfigDict(
         env_file=".env",
