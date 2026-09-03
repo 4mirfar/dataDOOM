@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: production_pipeline_postgres
+
+    environment:
+      POSTGRES_DB: market_data
+      POSTGRES_USER: pipeline_user
+      POSTGRES_PASSWORD: pipeline_password
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pipeline_user -d market_data"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

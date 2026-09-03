@@ -5,3 +5,11 @@ matplotlib
 seaborn
 tqdm
 jupyter
+
+pydantic
+pydantic-settings
+httpx
+psycopg[binary]
+python-dotenv
+
+pytest
