@@ -29,3 +29,23 @@ def test_invalid_price_is_rejected():
 
     assert len(valid_records) == 0
     assert rejected_count == 1
+
+
+def test_duplicate_records_are_rejected():
+    records = [
+        {
+            "symbol": "btc",
+            "current_price": 100000,
+            "last_updated": "2026-09-03T10:00:00Z",
+        },
+        {
+            "symbol": "btc",
+            "current_price": 100000,
+            "last_updated": "2026-09-03T10:00:00Z",
+        },
+    ]
+
+    valid_records, rejected_count = validate_records(records)
+
+    assert len(valid_records) == 1
+    assert rejected_count == 1
