@@ -645,3 +645,8 @@ The project demonstrates practical concepts used in modern data and AI infrastru
 * Analytics-ready data modeling
 
 These capabilities are particularly relevant to building reliable **ML and AI systems**, where model quality depends heavily on the quality and reliability of the underlying data pipelines.
+
+
+
+#### For finding user pass for airflow
+docker compose exec airflow-apiserver cat /opt/airflow/simple_auth_manager_passwords.json.generated

@@ -1,4 +1,8 @@
 services:
+
+  # ============================================================
+  # DataDOOM PostgreSQL
+  # ============================================================
   postgres:
     image: postgres:16
     container_name: production_pipeline_postgres
@@ -20,5 +24,175 @@ services:
       timeout: 5s
       retries: 5
 
+
+  # ============================================================
+  # Airflow Metadata PostgreSQL
+  # ============================================================
+  airflow-postgres:
+    image: postgres:16
+    container_name: datadoom_airflow_postgres
+
+    environment:
+      POSTGRES_DB: airflow
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+
+    volumes:
+      - airflow_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  # ============================================================
+  # Airflow Database Initialization
+  # ============================================================
+  airflow-init:
+    image: apache/airflow:3.3.1
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+
+    environment: &airflow-common-env
+
+      # --------------------------------------------------------
+      # Airflow
+      # --------------------------------------------------------
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+
+      AIRFLOW__CORE__AUTH_MANAGER: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
+
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: admin:admin
+
+      PYTHONPATH: /opt/airflow
+
+
+      # --------------------------------------------------------
+      # DataDOOM PostgreSQL
+      # --------------------------------------------------------
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: market_data
+      POSTGRES_USER: pipeline_user
+      POSTGRES_PASSWORD: pipeline_password
+
+    volumes: &airflow-common-volumes
+      - ./dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./config:/opt/airflow/config
+
+    command:
+      - bash
+      - -c
+      - |
+        airflow db migrate
+
+
+  # ============================================================
+  # Airflow API Server / UI
+  # ============================================================
+  airflow-apiserver:
+    image: apache/airflow:3.3.1
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+
+    environment:
+      <<: *airflow-common-env
+
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+
+    volumes: *airflow-common-volumes
+
+    ports:
+      - "8080:8080"
+
+    command:
+      - api-server
+
+
+  # ============================================================
+  # Airflow Scheduler
+  # ============================================================
+  airflow-scheduler:
+    image: apache/airflow:3.3.1
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+
+    environment:
+      <<: *airflow-common-env
+
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+
+    volumes: *airflow-common-volumes
+
+    command:
+      - scheduler
+
+
+  # ============================================================
+  # Airflow DAG Processor
+  # ============================================================
+  airflow-dag-processor:
+    image: apache/airflow:3.3.1
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+
+    environment:
+      <<: *airflow-common-env
+
+    volumes: *airflow-common-volumes
+
+    command:
+      - dag-processor
+
+
+  # ============================================================
+  # Airflow Triggerer
+  # ============================================================
+  airflow-triggerer:
+    image: apache/airflow:3.3.1
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+
+    environment:
+      <<: *airflow-common-env
+
+    volumes: *airflow-common-volumes
+
+    command:
+      - triggerer
+
+
+# ==============================================================
+# Volumes
+# ==============================================================
 volumes:
   postgres_data:
+  airflow_postgres_data:
+

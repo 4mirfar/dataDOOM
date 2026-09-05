@@ -13,3 +13,5 @@ psycopg[binary]
 python-dotenv
 
 pytest
+
+apache-airflow
