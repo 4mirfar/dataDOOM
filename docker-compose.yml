@@ -72,7 +72,10 @@ services:
 
       AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: admin:admin
 
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET}
       PYTHONPATH: /opt/airflow
+
+
 
 
       # --------------------------------------------------------
@@ -115,6 +118,8 @@ services:
 
       AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
 
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET}
+
     volumes: *airflow-common-volumes
 
     ports:
@@ -138,6 +143,7 @@ services:
 
     environment:
       <<: *airflow-common-env
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET}
 
       AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
 
@@ -161,6 +167,7 @@ services:
 
     environment:
       <<: *airflow-common-env
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET}
 
     volumes: *airflow-common-volumes
 
@@ -182,6 +189,7 @@ services:
 
     environment:
       <<: *airflow-common-env
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET}
 
     volumes: *airflow-common-volumes
 
