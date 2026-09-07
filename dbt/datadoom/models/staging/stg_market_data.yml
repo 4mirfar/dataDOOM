@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_market_data
+    columns:
+      - name: symbol
+        data_tests:
+          - not_null
+
+      - name: timestamp
+        data_tests:
+          - not_null
+
+      - name: price_usd
+        data_tests:
+          - not_null
